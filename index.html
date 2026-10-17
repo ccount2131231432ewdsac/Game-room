@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11121a">
+  <meta name="description" content="A small online game-night room to see who's around, get ready, chat, and talk while you play elsewhere.">
+  <title>Ready Room — your game night lobby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#11121a;--panel:#191b25;--panel2:#222530;--line:rgba(255,255,255,.1);--text:#f5f5f8;--muted:#a5a8b6;--lime:#c9fa70;--blue:#a7afff;--red:#ff9292;--max:1050px}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -22%,#292840 0,transparent 48%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.5}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid rgba(201,250,112,.65);outline-offset:3px}.page{width:min(var(--max),calc(100% - 36px));margin:0 auto}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font:700 16px 'Space Grotesk',sans-serif;letter-spacing:.6px}.brand-mark{width:29px;height:29px;display:grid;place-items:center;background:var(--lime);color:#15170f;border-radius:9px;font-size:14px}.top-tag{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:7px 11px;border-radius:99px}.screen{padding:70px 0}.entry{max-width:520px;margin:0 auto;text-align:center;padding:43px 40px 35px;background:rgba(25,27,37,.94);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 85px rgba(0,0,0,.28)}.overline{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--lime);text-transform:uppercase}.entry h1{font:600 clamp(42px,7vw,62px)/1.02 'Space Grotesk',sans-serif;letter-spacing:-3.2px;margin:18px 0 14px}.entry p{color:var(--muted);font-size:15px;max-width:390px;margin:0 auto}.name-field{display:block;text-align:left;margin:25px 0 14px;color:#dadce4;font-size:12px;font-weight:600}.name-field input{display:block;width:100%;margin-top:8px;border:1px solid var(--line);border-radius:11px;padding:13px 14px;background:#11131b;color:var(--text);font-size:14px}.remember-field{display:flex;align-items:center;gap:8px;margin:-2px 0 14px;color:var(--muted);font-size:11px;text-align:left}.remember-field input{margin:0;accent-color:var(--lime)}.primary{width:100%;border:0;border-radius:11px;background:var(--lime);color:#181b10;font-weight:700;padding:15px 20px;transition:filter .15s,transform .15s}.primary:hover{filter:brightness(1.06);transform:translateY(-1px)}.entry-note{font-size:11px!important;margin-top:16px!important;line-height:1.5}.error{min-height:22px;margin-top:12px;color:var(--red);font-size:13px}.hidden{display:none!important}.room{padding:30px 0 50px}.room-top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:17px}.room-title h1{font:600 27px 'Space Grotesk',sans-serif;letter-spacing:-1px;margin:0}.room-title p{margin:4px 0 0;color:var(--muted);font-size:13px}.room-actions{display:flex;align-items:center;gap:9px}.ghost{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:9px;padding:10px 13px;font-size:12px}.ghost:hover{background:rgba(255,255,255,.06)}.invite-banner{display:flex;align-items:center;justify-content:space-between;gap:17px;background:#1a1c27;border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:16px}.invite-copy{min-width:0}.invite-copy strong{font-size:13px}.invite-copy p{margin:3px 0 0;color:var(--muted);font-size:12px}.invite-row{display:flex;align-items:center;gap:8px}.invite-url{width:min(310px,30vw);border:1px solid var(--line);background:#101219;color:#ccd0de;border-radius:8px;padding:9px 10px;font-size:11px}.copy-btn{border:0;border-radius:8px;padding:10px 13px;background:#303444;color:#fff;font-weight:600;font-size:12px;white-space:nowrap}.copy-btn:hover{background:#41475d}.copy-btn:disabled{opacity:.5;cursor:default}.columns{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;align-items:stretch}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:19px}.card-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.card-heading h2{font:600 17px 'Space Grotesk',sans-serif;margin:0}.subtle{color:var(--muted);font-size:12px}.people{display:flex;flex-direction:column;gap:8px;margin:15px 0 18px}.person{display:flex;align-items:center;gap:10px;padding:11px;background:var(--panel2);border:1px solid transparent;border-radius:10px;min-width:0}.person.is-you{border-color:rgba(201,250,112,.24)}.avatar{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;background:#303348;color:#d8dbff;font:700 13px 'Space Grotesk',sans-serif}.person-copy{min-width:0;flex:1}.person-top{display:flex;align-items:center;gap:7px;min-width:0}.person-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.you-tag{font-size:9px;letter-spacing:.7px;text-transform:uppercase;color:var(--lime)}.person-status{font-size:11px;color:var(--muted);margin-top:2px}.status-dot{width:8px;height:8px;flex:none;border-radius:50%;background:#6d7180}.status-dot.online{background:var(--lime);box-shadow:0 0 12px rgba(201,250,112,.42)}.badges{display:flex;gap:5px;flex:none}.badge{font-size:9px;padding:4px 6px;border-radius:99px;background:#303444;color:#c8cad4;white-space:nowrap}.badge.ready{background:rgba(201,250,112,.12);color:var(--lime)}.badge.voice{background:rgba(167,175,255,.13);color:var(--blue)}.controls{padding-top:15px;border-top:1px solid var(--line)}.controls-title{font-size:11px;color:var(--muted);margin-bottom:10px}.control-row{display:flex;gap:8px}.ready-button,.playing-button{flex:1;border:1px solid rgba(201,250,112,.35);background:rgba(201,250,112,.08);color:var(--lime);border-radius:9px;padding:10px 11px;font-size:12px;font-weight:700}.ready-button.is-ready,.playing-button.active{background:var(--lime);color:#181b10}.playing-button{border-color:var(--line);background:transparent;color:#dbdce5}.voice-box{margin-top:13px;padding:13px;border:1px solid var(--line);border-radius:10px;background:#151721}.voice-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.voice-title{font-size:12px;font-weight:700}.voice-state{font-size:11px;color:var(--muted);margin-top:3px}.voice-actions{display:flex;gap:7px;margin-top:11px}.voice-button,.mute-button{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:11px;font-weight:600;color:var(--text);background:#282b37}.voice-button:hover,.mute-button:hover{background:#343849}.voice-button.in-voice{background:rgba(167,175,255,.13);border-color:rgba(167,175,255,.35);color:var(--blue)}.voice-button:disabled,.mute-button:disabled{opacity:.45;cursor:default}.chat-card{display:flex;flex-direction:column;min-height:510px}.chat-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:13px;border-bottom:1px solid var(--line)}.chat-head h2{font:600 17px 'Space Grotesk',sans-serif;margin:0}.online{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px}.online:before{content:'';width:7px;height:7px;background:#727786;border-radius:50%}.online.active{color:var(--lime)}.online.active:before{background:var(--lime)}.chat-log{flex:1;min-height:300px;max-height:480px;overflow:auto;padding:15px 1px;display:flex;flex-direction:column;gap:12px}.chat-empty{margin:auto;text-align:center;color:var(--muted);font-size:13px;max-width:230px}.message{font-size:13px;overflow-wrap:anywhere}.message-meta{display:flex;align-items:center;gap:8px;font-size:11px;margin-bottom:2px}.message-meta strong{color:#e4e5ec}.message-meta time{color:#737787}.message-body{color:#c5c8d2;white-space:pre-wrap}.chat-form{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:12px}.chat-input{min-width:0;flex:1;border:1px solid var(--line);background:#11131b;color:var(--text);border-radius:9px;padding:11px 12px;font-size:13px}.send-btn{border:0;background:#303444;border-radius:9px;color:white;padding:0 15px;font-size:12px;font-weight:700}.send-btn:disabled{opacity:.45;cursor:default}.footnote{text-align:center;color:#777c8b;font-size:11px;padding:18px 0 24px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#f3f5eb;color:#17190f;border-radius:99px;padding:10px 15px;font-size:12px;font-weight:700;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.remote-audio{display:none}
+    .status-dot.is-ready{background:var(--lime);box-shadow:0 0 12px rgba(201,250,112,.42)}.mute-button.is-muted{background:rgba(255,103,103,.15);border-color:rgba(255,125,125,.5);color:#ff9999}.mute-button svg{width:15px;height:15px;vertical-align:-3px;margin-right:5px}.voice-roster{margin:14px 0 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#151721}.voice-roster-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;margin-bottom:8px}.voice-roster-count{font-size:10px;color:var(--muted);font-weight:500}.voice-people{display:flex;flex-direction:column;gap:7px}.voice-empty{margin:0;color:var(--muted);font-size:11px}.voice-person{display:grid;grid-template-columns:minmax(0,1fr) minmax(74px,120px) 32px;align-items:center;gap:8px;min-width:0}.voice-person-name{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.voice-person-name small{color:var(--muted);font-size:9px;margin-left:4px}.voice-volume{width:100%;accent-color:var(--blue)}.voice-volume-value{text-align:right;font-size:10px;color:var(--muted)}.soundboard{margin-top:13px;padding-top:13px;border-top:1px solid var(--line)}.soundboard-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.soundboard-head strong{font-size:12px}.import-sounds{border:1px solid var(--line);border-radius:7px;padding:7px 9px;background:#282b37;color:var(--text);font-size:10px;font-weight:600}.soundboard-note{font-size:10px;color:var(--muted);line-height:1.4;margin:6px 0 9px}.sound-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:240px;overflow-y:auto;padding-right:2px}.sound-empty{grid-column:1/-1;font-size:10px;color:var(--muted);margin:0}.sound-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-rows:auto auto;align-items:center;gap:4px;padding:5px;border:1px solid var(--line);border-radius:8px;background:#151721;min-width:0}.sound-name-input{min-width:0;width:100%;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:#11131b;color:var(--text);font-size:9px}.sound-play,.sound-remove{border:1px solid var(--line);border-radius:6px;background:#282b37;color:var(--text);padding:4px 6px;font-size:9px;font-weight:600}.sound-play:hover{color:var(--lime)}.sound-play.is-playing{background:var(--lime);border-color:var(--lime);color:#17190f}.sound-remove{color:#ff9999}.sound-remove:hover{background:rgba(255,103,103,.15)}.sound-duration-controls{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr) 29px;align-items:center;gap:5px;color:var(--muted);font-size:8px;line-height:1}.sound-duration{appearance:none;width:100%;height:14px;min-width:0;margin:0;background:transparent;cursor:pointer}.sound-duration:disabled{opacity:1;cursor:default}.sound-duration::-webkit-slider-runnable-track{height:4px;border-radius:999px;background:linear-gradient(to right,var(--lime) var(--progress,0%),#3b3e49 var(--progress,0%))}.sound-duration::-webkit-slider-thumb{appearance:none;width:10px;height:10px;margin-top:-3px;border:0;border-radius:50%;background:var(--lime)}.sound-duration::-moz-range-track{height:4px;border-radius:999px;background:#3b3e49}.sound-duration::-moz-range-progress{height:4px;border-radius:999px;background:var(--lime)}.sound-duration::-moz-range-thumb{width:10px;height:10px;border:0;border-radius:50%;background:var(--lime)}.sound-duration-current,.sound-duration-value{text-align:right;font-size:8px;white-space:nowrap}.sound-duration-current{text-align:left}.room{padding:15px 0 18px}.room-top{margin-bottom:10px}.invite-banner{padding:10px 14px;margin-bottom:10px}.card{padding:15px}.people{gap:6px;margin:10px 0 12px}.controls{padding-top:10px}.controls-title{margin-bottom:7px}.ready-button,.playing-button{padding:8px 10px}.voice-roster{margin:9px 0 8px;padding:9px}.voice-roster-head{margin-bottom:5px}.voice-people{gap:5px}.voice-box{margin-top:8px;padding:10px}.voice-actions{margin-top:8px}.soundboard{margin-top:8px;padding-top:8px}.soundboard-note{margin:4px 0 6px}.chat-card{min-height:440px}.chat-log{min-height:200px}.footnote{padding:10px 0 12px}
+    .message-screen{height:calc(100vh - 76px);min-height:0;padding:14px 0;display:flex;flex-direction:column;overflow:hidden}.message-page-header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex:none;margin-bottom:12px}.back-to-lobby{display:flex;align-items:center;gap:8px;font-weight:700}.back-to-lobby span{font-size:18px;line-height:1}.message-page-title{display:flex;align-items:center;gap:14px}.message-page-title h1{font:600 24px 'Space Grotesk',sans-serif;letter-spacing:-.6px;margin:0}.messenger-layout{flex:1;min-height:0;max-height:none}.messenger-sidebar,.messenger-main{min-height:0}.messenger-thread{min-height:0}.dm-chat-log{min-height:0}
+    .message-launcher{position:fixed;z-index:20;left:22px;bottom:22px;width:56px;height:56px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.36);border-radius:50%;background:linear-gradient(145deg,#ddff9d,var(--lime));color:#17190f;box-shadow:0 10px 28px rgba(0,0,0,.38),0 0 0 5px rgba(201,250,112,.08);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}.message-launcher:hover{transform:translateY(-3px);filter:brightness(1.04);box-shadow:0 14px 34px rgba(0,0,0,.42),0 0 0 7px rgba(201,250,112,.12)}.message-launcher:active{transform:translateY(-1px) scale(.97)}.message-launcher svg{width:25px;height:25px;stroke-width:1.9}.message-unread{position:absolute;top:-3px;right:-3px;min-width:20px;height:20px;padding:0 5px;display:grid;place-items:center;border:2px solid var(--bg);border-radius:99px;background:#ff7373;color:#171111;font-size:9px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+    .messenger-layout{display:grid;grid-template-columns:minmax(230px,.7fr) minmax(0,1.5fr);gap:14px;min-height:calc(100vh - 175px);max-height:920px}.messenger-sidebar{display:flex;flex-direction:column;min-height:420px;overflow:auto}.messenger-sidebar-head{display:flex;flex-direction:column;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}.messenger-sidebar-head h2{font:600 17px 'Space Grotesk',sans-serif;margin:0}.messenger-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.messenger-add{border:1px solid rgba(201,250,112,.25);border-radius:8px;padding:8px 7px;background:rgba(201,250,112,.07);color:var(--lime);font-size:11px;font-weight:700}.messenger-add:hover{background:rgba(201,250,112,.15)}.messenger-section-title{margin:14px 0 7px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}.messenger-conversations,.messenger-friends{display:flex;flex-direction:column;gap:5px}.messenger-friend,.messenger-conversation{width:100%;display:flex;align-items:center;gap:9px;text-align:left;border:1px solid transparent;border-radius:9px;padding:9px;background:transparent;color:var(--text)}.messenger-friend:hover,.messenger-conversation:hover{background:rgba(255,255,255,.04)}.messenger-conversation.active{background:#252834;border-color:rgba(201,250,112,.22)}.messenger-avatar{width:32px;height:32px;display:grid;place-items:center;flex:none;border-radius:9px;background:#303348;color:#d8dbff;font:700 12px 'Space Grotesk',sans-serif}.messenger-copy{min-width:0;flex:1}.messenger-name,.messenger-preview{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.messenger-name{font-size:12px;font-weight:700}.messenger-preview{margin-top:2px;color:var(--muted);font-size:10px}.messenger-online-dot{width:7px;height:7px;flex:none;border-radius:50%;background:var(--lime)}.messenger-main{display:flex;min-width:0;min-height:420px}.messenger-empty{margin:auto;text-align:center;color:var(--muted);padding:30px}.messenger-empty h2{margin:10px 0 5px;color:var(--text);font:600 20px 'Space Grotesk',sans-serif}.messenger-empty p{margin:0;font-size:13px}.message-empty-icon{font-size:30px;color:var(--lime)}.messenger-thread{display:flex;flex:1;min-width:0;flex-direction:column}.conversation-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 0 13px;border-bottom:1px solid var(--line)}.conversation-head h2{margin:0;font:600 17px 'Space Grotesk',sans-serif}.conversation-head p{margin:2px 0 0;color:var(--muted);font-size:11px}.conversation-online{font-size:10px;color:var(--lime);white-space:nowrap}.conversation-online.offline{color:var(--muted)}.dm-chat-log{display:flex;flex:1;flex-direction:column;gap:12px;min-height:260px;overflow:auto;padding:16px 1px}.dm-message{max-width:min(82%,520px);align-self:flex-start;padding:9px 12px;border-radius:12px 12px 12px 3px;background:#272a36;color:#ececf2;font-size:13px;overflow-wrap:anywhere;white-space:pre-wrap}.dm-message.mine{align-self:flex-end;border-radius:12px 12px 3px 12px;background:rgba(201,250,112,.16);color:#f4f6e9}.dm-message-meta{display:block;margin-bottom:3px;color:var(--muted);font-size:9px}.dm-empty{margin:auto;color:var(--muted);font-size:12px;text-align:center}.dm-chat-form{margin-top:auto}.voice-privacy-button{margin-top:9px;border:1px solid var(--line);border-radius:7px;padding:7px 9px;background:transparent;color:#d7d9e2;font-size:10px;font-weight:600}.voice-privacy-button:hover{background:rgba(255,255,255,.05)}.compose-dialog{width:min(440px,calc(100% - 28px));max-height:min(80vh,650px);padding:20px;border:1px solid var(--line);border-radius:16px;background:#191b25;color:var(--text);box-shadow:0 24px 90px rgba(0,0,0,.5)}.compose-dialog::backdrop{background:rgba(6,7,12,.72);backdrop-filter:blur(4px)}.compose-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.compose-heading h2{margin:0;font:600 20px 'Space Grotesk',sans-serif}.compose-heading p{margin:4px 0 0;color:var(--muted);font-size:12px}.dialog-close{width:30px;height:30px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);font-size:20px;line-height:1}.compose-people{display:flex;flex-direction:column;gap:6px;max-height:340px;overflow:auto;margin:16px 0}.compose-person{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#151721}.compose-person input,.voice-access-options input{accent-color:var(--lime)}.compose-person-copy{flex:1;min-width:0}.compose-person-name{font-size:12px;font-weight:700}.compose-person-state{color:var(--muted);font-size:10px}.compose-empty{padding:18px 5px;color:var(--muted);font-size:12px;text-align:center}.compose-group-name{margin-top:14px}.compose-group-name label{display:block;margin-bottom:5px;color:var(--muted);font-size:11px}.compose-group-name input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#11131b;color:var(--text)}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;padding-top:12px;border-top:1px solid var(--line)}.dialog-primary{width:auto;padding:9px 14px;font-size:12px}.dialog-primary:disabled{opacity:.45;cursor:default}.voice-access-options{display:flex;flex-direction:column;gap:8px;margin-top:16px}.voice-access-options label{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#151721;font-size:12px}.voice-people-picker:empty{display:none}.messenger-friend.friend-offline .messenger-avatar,.messenger-online-dot.offline{opacity:.45}.messenger-friend.friend-offline .messenger-name{color:#c2c4cc}
+    @media(max-width:760px){.screen{padding:48px 0}.entry{padding:36px 24px}.room{padding-top:23px}.columns{grid-template-columns:1fr}.chat-card{min-height:420px}.chat-log{min-height:250px}.invite-banner{align-items:flex-start;flex-direction:column}.invite-row{width:100%}.invite-url{width:100%;flex:1}.room-top{align-items:flex-start}.message-screen{height:calc(100vh - 76px);padding:12px 0}.message-page-header{align-items:center;flex-direction:row;gap:10px}.message-page-title h1{font-size:21px}.messenger-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(130px,36%) minmax(0,1fr);min-height:0;max-height:none}.messenger-sidebar{min-height:0;max-height:none}.messenger-main{min-height:0}.dm-chat-log{min-height:0}}
+    @media(max-width:470px){.page{width:calc(100% - 24px)}.topbar{height:65px}.top-tag{font-size:10px}.entry h1{font-size:46px}.room-top{flex-direction:column}.room-actions{width:100%}.room-actions button{flex:1}.card{padding:15px}.room-title h1{font-size:24px}.person{gap:8px}.badge{font-size:8px;padding:4px 5px}.sound-list{grid-template-columns:1fr;max-height:none;overflow:visible}.message-launcher{left:14px;bottom:14px}.message-page-header{align-items:center}.message-page-title{justify-content:flex-end}.message-page-title h1{font-size:21px}.messenger-actions{grid-template-columns:1fr 1fr}.messenger-add{font-size:10px;padding:8px 4px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="page topbar">
+    <a class="brand" href="#" aria-label="Ready Room home"><span class="brand-mark">R</span> READY ROOM</a>
+    <span class="top-tag">A place to meet before game night</span>
+  </header>
+  <main class="page">
+    <section class="screen" id="entryScreen">
+      <div class="entry">
+        <div class="overline">Your game happens elsewhere</div>
+        <h1 id="entryTitle">See who’s on.<br>Ready up.</h1>
+        <p id="entryDescription">Make a little room for your friends. See who’s around, chat to plan a game, and hop into voice while you play on another device.</p>
+        <label class="name-field">Your name<input id="nameInput" maxlength="20" autocomplete="nickname" placeholder="Your name"></label>
+        <label class="remember-field"><input id="rememberName" type="checkbox" checked> Remember my name on this device</label>
+        <button class="primary" id="readyUpButton" type="button">Ready Up</button>
+        <p class="entry-note" id="entryNote">Your name can be remembered on this device. Ready Up whenever you want to join your friends.</p>
+        <div class="error" id="entryError" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="room hidden" id="roomScreen" aria-live="polite">
+      <div class="room-top">
+        <div class="room-title"><h1>Friends lobby</h1><p id="roomStatus">Opening your lobby…</p></div>
+        <div class="room-actions"><button class="ghost" id="leaveButton" type="button">Leave lobby</button></div>
+      </div>
+      <div class="invite-banner">
+        <div class="invite-copy"><strong>Invite your friends</strong><p>Share this link so they can see you online and join the chat.</p></div>
+        <div class="invite-row"><input class="invite-url" id="inviteUrl" readonly aria-label="Lobby invite link"><button class="copy-btn" id="copyButton" type="button">Copy link</button></div>
+      </div>
+      <div class="columns">
+        <section class="card" aria-label="Friends and voice channel">
+          <div class="card-heading"><h2>Who’s around</h2><span class="subtle" id="memberCount">1 online</span></div>
+          <div class="people" id="peopleList"></div>
+          <div class="controls">
+            <div class="controls-title">Your status</div>
+            <div class="control-row"><button class="ready-button" id="readyToggle" type="button">Ready Up</button><button class="playing-button" id="playingToggle" type="button">I’m playing</button></div>
+            <div class="voice-roster"><div class="voice-roster-head"><span>In voice</span><span class="voice-roster-count" id="voiceMemberCount">0 people</span></div><div class="voice-people" id="voicePeopleList"><p class="voice-empty">No one in voice yet.</p></div></div>
+            <div class="voice-box">
+              <div class="voice-top"><div><div class="voice-title">Voice channel</div><div class="voice-state" id="voiceState">Join voice when you want to talk.</div></div><span class="badge voice hidden" id="voiceBadge">VOICE ON</span></div>
+              <div class="voice-actions"><button class="voice-button" id="voiceToggle" type="button">Join voice</button><button class="mute-button" id="muteToggle" type="button" disabled><span id="muteIcon"></span><span id="muteLabel">Mute mic</span></button></div>
+              <button class="voice-privacy-button" id="openVoicePrivacy" type="button">🔒 Choose who can join</button>
+            </div>
+            <div class="soundboard"><div class="soundboard-head"><strong>Soundboard</strong><button class="import-sounds" id="importSoundsButton" type="button">＋ Import sounds</button><input class="hidden" id="soundFiles" type="file" accept="audio/*" multiple aria-label="Import audio sounds"></div><p class="soundboard-note">Import up to 8 clips (150 KB each). Clips stay on this device; Play shares one with everyone.</p><div class="sound-list" id="soundList"><p class="sound-empty">No custom sounds yet.</p></div></div>
+          </div>
+          <div id="remoteAudios"></div>
+        </section>
+        <section class="card chat-card" aria-label="Lobby chat">
+          <div class="chat-head"><h2>Lobby chat</h2><span class="online" id="chatStatus">Waiting for friends</span></div>
+          <div class="chat-log" id="chatLog" aria-live="polite"><p class="chat-empty" id="chatEmpty">When your friends join, chat here to decide what to play.</p></div>
+          <form class="chat-form" id="chatForm"><input class="chat-input" id="chatInput" maxlength="240" placeholder="Message your friends…" aria-label="Lobby chat message" autocomplete="off" disabled><button class="send-btn" id="sendButton" type="submit" disabled>Send</button></form>
+        </section>
+      </div>
+      <p class="footnote">Keep this page open in the background while you play on your other device. Anyone with the invite link can join this lobby.</p>
+      <button class="message-launcher" id="openMessages" type="button" aria-label="Open messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M7.5 9h9m-9 3h9m-9 3h6"/></svg><span class="message-unread hidden" id="messageUnread">0</span></button>
+    </section>
+    <section class="message-screen hidden" id="messageScreen" aria-label="Friends and messages">
+      <div class="message-page-header"><button class="ghost back-to-lobby" id="backToLobby" type="button"><span aria-hidden="true">←</span> Back to lobby</button><div class="message-page-title"><h1>Messages</h1><span class="online" id="messageOnlineStatus">Waiting for friends</span></div></div>
+      <div class="messenger-layout">
+        <aside class="card messenger-sidebar" aria-label="Friends and conversations">
+          <div class="messenger-sidebar-head"><h2>Friends</h2><div class="messenger-actions"><button class="messenger-add" id="newMessageButton" type="button">+ Message</button><button class="messenger-add" id="newGroupButton" type="button">+ Group chat</button></div></div>
+          <div class="messenger-section-title">In this lobby</div><div class="messenger-friends" id="messengerFriends"></div>
+          <div class="messenger-section-title conversations-title">Conversations</div><div class="messenger-conversations" id="messengerConversations"></div>
+        </aside>
+        <section class="card messenger-main" aria-label="Selected conversation">
+          <div class="messenger-empty" id="messengerEmpty"><div class="message-empty-icon">✉</div><h2>Your messages</h2><p>Choose a friend, start a message, or create a group chat.</p></div>
+          <div class="messenger-thread hidden" id="messengerThread">
+            <div class="conversation-head"><div><h2 id="conversationTitle">Conversation</h2><p id="conversationPeople">Friends</p></div><span class="conversation-online" id="conversationStatus">Online</span></div>
+            <div class="dm-chat-log" id="dmChatLog" aria-live="polite"></div>
+            <form class="chat-form dm-chat-form" id="dmChatForm"><input class="chat-input" id="dmChatInput" maxlength="240" placeholder="Message your friends…" aria-label="Direct message" autocomplete="off"><button class="send-btn" id="dmSendButton" type="submit">Send</button></form>
+          </div>
+        </section>
+      </div>
+    </section>
+    <dialog class="compose-dialog" id="composeDialog" aria-labelledby="composeTitle">
+      <div class="compose-heading"><div><h2 id="composeTitle">New message</h2><p id="composeInstructions">Choose a friend to message.</p></div><button class="dialog-close" id="closeCompose" type="button" aria-label="Close">×</button></div>
+      <div class="compose-group-name hidden" id="groupNameWrap"><label for="groupNameInput">Group name</label><input id="groupNameInput" maxlength="40" placeholder="Game night group"></div>
+      <div class="compose-people" id="composePeople"></div>
+      <div class="dialog-actions"><button class="ghost" id="cancelCompose" type="button">Cancel</button><button class="primary dialog-primary" id="startConversation" type="button" disabled>Start chat</button></div>
+    </dialog>
+    <dialog class="compose-dialog voice-dialog" id="voicePrivacyDialog" aria-labelledby="voicePrivacyTitle">
+      <div class="compose-heading"><div><h2 id="voicePrivacyTitle">Who can join your voice?</h2><p>Choose who can hear and speak with you. They still need to join voice themselves.</p></div><button class="dialog-close" id="closeVoicePrivacy" type="button" aria-label="Close">×</button></div>
+      <div class="voice-access-options"><label><input type="radio" name="voiceAccess" value="everyone" checked> Everyone in the lobby</label><label><input type="radio" name="voiceAccess" value="selected"> Selected people only</label></div>
+      <div class="compose-people voice-people-picker" id="voicePeoplePicker"></div>
+      <div class="dialog-actions"><button class="ghost" id="cancelVoicePrivacy" type="button">Cancel</button><button class="primary dialog-primary" id="saveVoicePrivacy" type="button">Save settings</button></div>
+    </dialog>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const invitedRoom = new URLSearchParams(location.search).get('room');
+      const MAX_PEOPLE = 6;
+      const MAX_SOUND_BYTES = 150 * 1024;
+      const MAX_SOUNDS = 8;
+      const SOUND_PART_CHARS = 12000;
+      const MAX_SOUND_URL_LENGTH = Math.ceil(MAX_SOUND_BYTES/3)*4+100;
+      const app = {
+        role:null, peer:null, selfPeerId:'', roomId:'', connection:null, connections:new Map(), members:new Map(), messages:[],
+        localName:'', profile:{name:'',ready:false,playing:false,voiceOn:false,voicePrivate:false,voiceAllowedIds:[]}, voiceStream:null, muted:false, voiceCalls:new Map(), volumes:new Map(), sounds:[], soundTransfers:new Map(), soundPlayers:new Map(), soundProgress:new Map(), chatOpen:false,unread:0,receivedInitialState:false,friendDirectory:new Map(),conversations:new Map(),dmMessages:new Map(),activeConversationId:'',composeMode:'direct',toastTimer:null
+      };
+      const cleanName = (value, fallback='Player') => String(value || '').replace(/[<>\r\n]/g,'').trim().slice(0,20) || fallback;
+      const NAME_STORAGE_KEY = 'ready-room-name';
+      function readRememberedName() {
+        try { return cleanName(localStorage.getItem(NAME_STORAGE_KEY), ''); }
+        catch(_) { return ''; }
+      }
+      let rememberedName = readRememberedName();
+      function updateEntryButton() {
+        const typedName=cleanName($('nameInput').value,'');
+        if($('rememberName').checked&&rememberedName&&typedName===rememberedName) $('readyUpButton').textContent=`Continue as ${rememberedName}`;
+        else if($('rememberName').checked&&typedName) $('readyUpButton').textContent='Save name & Ready Up';
+        else $('readyUpButton').textContent='Ready Up';
+      }
+      function restoreRememberedName() {
+        if(!rememberedName) { updateEntryButton(); return; }
+        $('nameInput').value=rememberedName;
+        $('rememberName').checked=true;
+        $('entryTitle').innerHTML='Welcome back.<br>Ready up.';
+        $('entryDescription').textContent=invitedRoom
+          ? 'Your name is saved on this device. Ready up to join your friends’ lobby.'
+          : 'Your name is saved on this device. Ready up to open your game-night lobby.';
+        $('entryNote').textContent='You’ll appear online after you join. Close the page or leave the lobby to go offline.';
+        updateEntryButton();
+      }
+      const isOnlineHost = () => location.protocol === 'https:';
+      const showToast = (text) => { $('toast').textContent=text; $('toast').classList.add('show'); clearTimeout(app.toastTimer); app.toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400); };
+      const showError = (text) => { $('entryError').textContent=text; };
+      function renderUnreadBadge() {
+        const count=app.chatOpen?0:app.unread;
+        $('messageUnread').textContent=count>99?'99+':String(count);
+        $('messageUnread').classList.toggle('hidden',count===0);
+        $('openMessages').setAttribute('aria-label',count?`Open messages, ${count} unread`:'Open messages');
+      }
+      function markUnread(count=1) { if(app.chatOpen||count<1) return; app.unread=Math.min(99,app.unread+count); renderUnreadBadge(); }
+      function setChatOpen(open) { app.chatOpen=Boolean(open); if(app.chatOpen) app.unread=0; renderRoom(); if(app.chatOpen&&app.activeConversationId) setTimeout(()=>$('dmChatInput').focus(),0); }
+      const validSoundUrl = (url) => typeof url==='string'&&url.length<=MAX_SOUND_URL_LENGTH&&/^data:audio\/[\w.+-]+;base64,[A-Za-z0-9+/]+=*$/i.test(url);
+      function readSavedSounds() {
+        try { const value=JSON.parse(localStorage.getItem('ready-room-sounds')||'[]'); return Array.isArray(value)?value.filter(s=>s&&typeof s.id==='string'&&typeof s.name==='string'&&validSoundUrl(s.url)).slice(0,MAX_SOUNDS).map(s=>({...s,clipDuration:Number.isFinite(Number(s.clipDuration))&&Number(s.clipDuration)>0?Math.min(600,Number(s.clipDuration)):0})):[]; }
+        catch(_) { return []; }
+      }
+      function saveSounds() { try { localStorage.setItem('ready-room-sounds',JSON.stringify(app.sounds)); } catch(_) { showToast('Could not save sounds on this device.'); } }
+      app.sounds=readSavedSounds();
+      const localMember = () => ({peerId:app.selfPeerId,name:app.localName,ready:app.profile.ready,playing:app.profile.playing,voiceOn:app.profile.voiceOn,voicePrivate:Boolean(app.profile.voicePrivate),voiceAllowedIds:Array.isArray(app.profile.voiceAllowedIds)?app.profile.voiceAllowedIds:[],online:true});
+      const roster = () => {
+        const list = Array.from(app.members.values()).filter(person=>person.peerId!==app.selfPeerId);
+        if (app.role==='host' || app.selfPeerId) list.push(localMember());
+        return list.sort((a,b)=>(a.peerId===app.selfPeerId?-1:b.peerId===app.selfPeerId?1:a.name.localeCompare(b.name)));
+      };
+      const roomState = () => ({members:Array.from(app.members.values()),messages:app.messages.slice(-60)});
+      function sendToRoom(message,excludePeerId='') { for (const conn of app.connections.values()) if (conn.open&&conn.peer!==excludePeerId) conn.send(message); }
+      function broadcastState() { if (app.role!=='host') return; sendToRoom({type:'state',state:roomState()}); renderRoom(); reconcileVoice(); }
+      function setLocalProfile(patch) {
+        Object.assign(app.profile,patch);
+        if (app.role==='host') { app.members.set(app.selfPeerId,localMember()); broadcastState(); }
+        else { if (app.connection && app.connection.open) app.connection.send({type:'profile',profile:app.profile}); renderRoom(); reconcileVoice(); }
+      }
+      function canVoiceConnect(person) {
+        const self=localMember();
+        if(!person||person.peerId===self.peerId) return true;
+        if(self.voicePrivate&&!self.voiceAllowedIds.includes(person.peerId)) return false;
+        if(person.voicePrivate&&(!Array.isArray(person.voiceAllowedIds)||!person.voiceAllowedIds.includes(self.peerId))) return false;
+        return true;
+      }
+      function setVoicePrivacyDialog() {
+        const people=roster().filter(person=>person.peerId!==app.selfPeerId);
+        const list=$('voicePeoplePicker'); list.replaceChildren();
+        $('voicePrivacyDialog').querySelector('input[name="voiceAccess"][value="selected"]').checked=Boolean(app.profile.voicePrivate);
+        $('voicePrivacyDialog').querySelector('input[name="voiceAccess"][value="everyone"]').checked=!app.profile.voicePrivate;
+        for(const person of people) {
+          const label=document.createElement('label'); label.className='compose-person';
+          const input=document.createElement('input'); input.type='checkbox'; input.value=person.peerId; input.checked=(app.profile.voiceAllowedIds||[]).includes(person.peerId);
+          const copy=document.createElement('span'); copy.className='compose-person-copy';
+          const name=document.createElement('span'); name.className='compose-person-name'; name.textContent=person.name||'Player';
+          const state=document.createElement('span'); state.className='compose-person-state'; state.textContent=person.online===false?'Offline':'In this lobby';
+          copy.append(name,state); label.append(input,copy); list.append(label);
+        }
+        if(!people.length) { const empty=document.createElement('div'); empty.className='compose-empty'; empty.textContent='Your friends will appear here when they join this lobby.'; list.append(empty); }
+      }
+      function renderRoom() {
+        if (!app.role) return;
+        $('entryScreen').classList.add('hidden'); $('roomScreen').classList.toggle('hidden',app.chatOpen); $('messageScreen').classList.toggle('hidden',!app.chatOpen); $('openMessages').classList.toggle('hidden',app.chatOpen); renderUnreadBadge();
+        const people=roster();
+        $('memberCount').textContent=`${people.filter(p=>p.online!==false).length} online`;
+        $('peopleList').replaceChildren();
+        for (const person of people) {
+          const card=document.createElement('div'); card.className=`person${person.peerId===app.selfPeerId?' is-you':''}`;
+          const avatar=document.createElement('div'); avatar.className='avatar'; avatar.textContent=(person.name||'?').charAt(0).toUpperCase();
+          const copy=document.createElement('div'); copy.className='person-copy';
+          const top=document.createElement('div'); top.className='person-top';
+          const name=document.createElement('div'); name.className='person-name'; name.textContent=person.name||'Player'; top.append(name);
+          if (person.peerId===app.selfPeerId) { const you=document.createElement('span'); you.className='you-tag'; you.textContent='You'; top.append(you); }
+          const status=document.createElement('div'); status.className='person-status'; status.textContent=person.playing?'Playing':'Online';
+          copy.append(top,status);
+          const badges=document.createElement('div'); badges.className='badges';
+          if (person.voiceOn) { const badge=document.createElement('span'); badge.className='badge voice'; badge.textContent='VOICE'; badges.append(badge); }
+          const dot=document.createElement('span'); dot.className=`status-dot${person.ready?' is-ready':''}`; dot.title=person.ready?'Ready':'Not ready';
+          card.append(avatar,copy,badges,dot); $('peopleList').append(card);
+        }
+        $('readyToggle').textContent=app.profile.ready?'Ready ✓':'Ready Up'; $('readyToggle').classList.toggle('is-ready',app.profile.ready);
+        $('playingToggle').textContent=app.profile.playing?'Playing ✓':'I’m playing'; $('playingToggle').classList.toggle('active',app.profile.playing);
+        $('inviteUrl').value=app.roomId?(isOnlineHost()?`${location.origin}${location.pathname}?room=${encodeURIComponent(app.roomId)}`:'Host this page over HTTPS to share a live invite link.'):'Preparing invite link…';
+        $('copyButton').disabled=!app.roomId||!isOnlineHost(); $('copyButton').textContent=isOnlineHost()?'Copy link':'Needs HTTPS';
+        const others=people.length-1;
+        $('roomStatus').textContent=!app.selfPeerId?'Opening your lobby…':(others===0?'You’re online. Invite friends to join.':`${others+1} friends in this lobby.`);
+        $('chatStatus').textContent=others?'Friends are here':'Waiting for friends'; $('chatStatus').classList.toggle('active',others>0);
+        $('chatInput').disabled=app.role==='guest'&&!app.connection; $('sendButton').disabled=app.role==='guest'&&!app.connection;
+        $('voiceBadge').classList.toggle('hidden',!app.profile.voiceOn);
+        const secureVoice=Boolean(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&(window.isSecureContext||location.hostname==='localhost'));
+        $('voiceToggle').disabled=!secureVoice||(!app.selfPeerId);
+        $('voiceToggle').textContent=app.voiceStream?'Leave voice':'Join voice'; $('voiceToggle').classList.toggle('in-voice',Boolean(app.voiceStream));
+        $('muteToggle').disabled=!app.voiceStream; renderMuteButton();
+        $('voiceState').textContent=!secureVoice?'Voice needs this page hosted over HTTPS.':app.voiceStream?(app.muted?'You’re in voice · mic muted':'You’re in voice · mic on'):'Join voice when you want to talk.';
+        $('openVoicePrivacy').textContent=app.profile.voicePrivate?'🔒 Voice: selected people':'🔒 Choose who can join';
+        renderVoicePeople(); renderSoundboard(); renderMessages(); renderMessagingApp();
+      }
+      function renderMessages() {
+        const log=$('chatLog'); log.replaceChildren();
+        if (!app.messages.length) { const empty=document.createElement('p'); empty.className='chat-empty'; empty.textContent='When your friends join, chat here to decide what to play.'; log.append(empty); return; }
+        for (const message of app.messages.slice(-60)) {
+          const item=document.createElement('div'); item.className='message';
+          const meta=document.createElement('div'); meta.className='message-meta';
+          const name=document.createElement('strong'); name.textContent=message.name||'Player';
+          const time=document.createElement('time'); time.textContent=message.time||'';
+          const body=document.createElement('div'); body.className='message-body'; body.textContent=message.text||'';
+          meta.append(name,time); item.append(meta,body); log.append(item);
+        }
+        log.scrollTop=log.scrollHeight;
+      }
+      function conversationName(conversation) {
+        if(conversation.type==='direct') {
+          const other=(conversation.memberIds||[]).find(id=>id!==app.selfPeerId);
+          return roster().find(person=>person.peerId===other)?.name||conversation.members?.find(person=>person.peerId===other)?.name||'Friend';
+        }
+        return conversation.title||'Group chat';
+      }
+      function conversationPeople(conversation) {
+        return (conversation.memberIds||[]).map(id=>roster().find(person=>person.peerId===id)?.name||conversation.members?.find(person=>person.peerId===id)?.name||'Friend').join(', ');
+      }
+      function conversationOnline(conversation) {
+        const present=new Set(roster().filter(person=>person.online!==false).map(person=>person.peerId));
+        return (conversation.memberIds||[]).every(id=>id===app.selfPeerId||present.has(id));
+      }
+      function renderMessagingApp() {
+        const friends=$('messengerFriends'); friends.replaceChildren();
+        const others=roster().filter(person=>person.peerId!==app.selfPeerId);
+        for(const person of app.friendDirectory.values()) person.online=false;
+        for(const person of others) app.friendDirectory.set(person.peerId,{peerId:person.peerId,name:person.name,online:person.online!==false,playing:person.playing});
+        for(const conversation of app.conversations.values()) for(const person of conversation.members||[]) if(person.peerId!==app.selfPeerId&&!app.friendDirectory.has(person.peerId)) app.friendDirectory.set(person.peerId,{...person,online:false,playing:false});
+        const friendList=Array.from(app.friendDirectory.values()).filter(person=>person.peerId!==app.selfPeerId).sort((a,b)=>Number(b.online)-Number(a.online)||a.name.localeCompare(b.name));
+        $('messageOnlineStatus').textContent=`${others.length} ${others.length===1?'friend':'friends'} online`;
+        for(const person of friendList) {
+          const online=others.some(item=>item.peerId===person.peerId);
+          const button=document.createElement('button'); button.type='button'; button.className='messenger-friend'; button.classList.toggle('friend-offline',!online);
+          const avatar=document.createElement('span'); avatar.className='messenger-avatar'; avatar.textContent=(person.name||'?').charAt(0).toUpperCase();
+          const copy=document.createElement('span'); copy.className='messenger-copy';
+          const name=document.createElement('span'); name.className='messenger-name'; name.textContent=person.name||'Player';
+          const state=document.createElement('span'); state.className='messenger-preview'; state.textContent=online?(person.playing?'Playing':'Online'):'Offline'; copy.append(name,state);
+          const dot=document.createElement('span'); dot.className=`messenger-online-dot${online?'':' offline'}`; button.append(avatar,copy,dot); button.addEventListener('click',()=>{if(online)startDirectConversation(person.peerId);else if(Array.from(app.conversations.values()).some(item=>item.type==='direct'&&item.memberIds.includes(person.peerId)&&item.memberIds.includes(app.selfPeerId))){const conversation=makeConversation('direct',[app.selfPeerId,person.peerId]);app.activeConversationId=conversation.id;renderRoom();}else showToast('Your friend needs to join the lobby before you can start a chat.');}); friends.append(button);
+        }
+        if(!friendList.length) { const empty=document.createElement('div'); empty.className='compose-empty'; empty.textContent='Friends in your lobby will show up here.'; friends.append(empty); }
+        const list=$('messengerConversations'); list.replaceChildren();
+        const conversations=Array.from(app.conversations.values()).filter(item=>(item.memberIds||[]).includes(app.selfPeerId)).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+        for(const conversation of conversations) {
+          const button=document.createElement('button'); button.type='button'; button.className=`messenger-conversation${app.activeConversationId===conversation.id?' active':''}`;
+          const avatar=document.createElement('span'); avatar.className='messenger-avatar'; avatar.textContent=conversation.type==='group'?'#':conversationName(conversation).charAt(0).toUpperCase();
+          const copy=document.createElement('span'); copy.className='messenger-copy';
+          const name=document.createElement('span'); name.className='messenger-name'; name.textContent=conversationName(conversation);
+          const last=(app.dmMessages.get(conversation.id)||[]).at(-1);
+          const preview=document.createElement('span'); preview.className='messenger-preview'; preview.textContent=last?`${last.fromId===app.selfPeerId?'You':last.name}: ${last.text}`:conversationPeople(conversation);
+          copy.append(name,preview); button.append(avatar,copy); button.addEventListener('click',()=>{app.activeConversationId=conversation.id;app.unread=0;renderRoom();}); list.append(button);
+        }
+        $('messengerEmpty').classList.toggle('hidden',Boolean(app.activeConversationId&&app.conversations.has(app.activeConversationId)));
+        $('messengerThread').classList.toggle('hidden',!app.activeConversationId||!app.conversations.has(app.activeConversationId));
+        if(!app.activeConversationId||!app.conversations.has(app.activeConversationId)) return;
+        const conversation=app.conversations.get(app.activeConversationId); const online=conversationOnline(conversation);
+        $('conversationTitle').textContent=conversationName(conversation); $('conversationPeople').textContent=conversationPeople(conversation);
+        $('conversationStatus').textContent=online?'Everyone is here':'Some members are offline'; $('conversationStatus').classList.toggle('offline',!online);
+        const connected=app.role==='host'?Boolean(app.peer&&app.peer.open):Boolean(app.connection&&app.connection.open);
+        $('dmChatInput').disabled=!online||!connected; $('dmSendButton').disabled=!online||!connected;
+        $('dmChatInput').placeholder=online?'Message your friends…':'Waiting for everyone in this chat to come online';
+        renderDirectMessages(conversation);
+      }
+      function renderDirectMessages(conversation) {
+        const log=$('dmChatLog'); log.replaceChildren(); const messages=app.dmMessages.get(conversation.id)||[];
+        if(!messages.length) { const empty=document.createElement('p'); empty.className='dm-empty'; empty.textContent='This is the start of your conversation.'; log.append(empty); return; }
+        for(const message of messages.slice(-100)) {
+          const item=document.createElement('div'); item.className=`dm-message${message.fromId===app.selfPeerId?' mine':''}`;
+          const meta=document.createElement('span'); meta.className='dm-message-meta'; meta.textContent=`${message.fromId===app.selfPeerId?'You':message.name||'Friend'} · ${message.time||''}`;
+          item.append(meta,document.createTextNode(message.text||'')); log.append(item);
+        }
+        log.scrollTop=log.scrollHeight;
+      }
+      function storeConversation(conversation) {
+        if(!conversation||typeof conversation.id!=='string'||!Array.isArray(conversation.memberIds)) return;
+        app.conversations.set(conversation.id,{...conversation,memberIds:[...conversation.memberIds],members:Array.isArray(conversation.members)?conversation.members:[],updatedAt:conversation.updatedAt||Date.now()});
+      }
+      function makeConversation(type,memberIds,title='') {
+        const ids=Array.from(new Set(memberIds)).sort();
+        const id=type==='direct'?`direct:${ids.join('::')}`:`group:${Date.now().toString(36)}:${Math.random().toString(36).slice(2,9)}`;
+        return {id,type,title:cleanName(title,'Group chat'),memberIds:ids,members:ids.map(peerId=>{const person=roster().find(item=>item.peerId===peerId);return {peerId,name:person?.name||'Friend'};}),createdBy:app.selfPeerId,updatedAt:Date.now()};
+      }
+      function publishConversation(conversation) {
+        storeConversation(conversation); app.activeConversationId=conversation.id; app.dmMessages.set(conversation.id,app.dmMessages.get(conversation.id)||[]);
+        if(app.role==='host') {
+          for(const peerId of conversation.memberIds) if(peerId!==app.selfPeerId) { const conn=app.connections.get(peerId); if(conn&&conn.open) conn.send({type:'dm-create',conversation}); }
+        } else if(app.connection&&app.connection.open) app.connection.send({type:'dm-create',conversation});
+        else { showToast('Join the lobby before starting a message.'); }
+        app.unread=0; renderRoom();
+      }
+      function startDirectConversation(peerId) {
+        const person=roster().find(item=>item.peerId===peerId);
+        if(!person) { showToast('That friend is no longer in the lobby.'); return; }
+        const conversation=makeConversation('direct',[app.selfPeerId,peerId]);
+        if(app.conversations.has(conversation.id)) { app.activeConversationId=conversation.id; app.unread=0; renderRoom(); return; }
+        publishConversation(conversation);
+      }
+      function validateConversation(value,senderId) {
+        if(!value||typeof value!=='object'||typeof value.id!=='string'||value.id.length>180||!Array.isArray(value.memberIds)) return null;
+        const ids=Array.from(new Set(value.memberIds.filter(id=>typeof id==='string')));
+        if(ids.length<2||ids.length>MAX_PEOPLE||!ids.includes(senderId)||ids.some(id=>id!==app.selfPeerId&&!app.members.has(id))) return null;
+        const type=value.type==='group'?'group':'direct';
+        if(type==='direct'&&ids.length!==2) return null;
+        if(type==='group'&&ids.length<3) return null;
+        const canonical=type==='direct'?`direct:${[...ids].sort().join('::')}`:value.id;
+        if(type==='direct'&&canonical!==value.id) return null;
+        return {...value,id:canonical,type,title:cleanName(value.title,'Group chat'),memberIds:ids,members:ids.map(peerId=>{const person=roster().find(item=>item.peerId===peerId);return {peerId,name:person?.name||'Friend'};}),createdBy:senderId,updatedAt:Number(value.updatedAt)||Date.now()};
+      }
+      function receiveConversation(value,senderId) {
+        const conversation=validateConversation(value,senderId); if(!conversation) return;
+        if(app.role==='host') {
+          if(app.conversations.has(conversation.id)) { const existing=app.conversations.get(conversation.id); if(existing.memberIds.includes(senderId)) { const conn=app.connections.get(senderId); if(conn&&conn.open) conn.send({type:'dm-create',conversation:existing}); } return; }
+          storeConversation(conversation);
+          for(const peerId of conversation.memberIds) if(peerId!==senderId&&peerId!==app.selfPeerId) { const conn=app.connections.get(peerId); if(conn&&conn.open) conn.send({type:'dm-create',conversation}); }
+          if(conversation.memberIds.includes(app.selfPeerId)) { app.dmMessages.set(conversation.id,[]); renderRoom(); }
+        } else if(conversation.memberIds.includes(app.selfPeerId)) { storeConversation(conversation); app.dmMessages.set(conversation.id,app.dmMessages.get(conversation.id)||[]); renderRoom(); }
+      }
+      function makeDirectMessage(text) { return {id:`${Date.now()}-${Math.random().toString(36).slice(2,8)}`,fromId:app.selfPeerId,name:app.localName,text,time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}; }
+      function storeDirectMessage(conversationId,message) {
+        const messages=app.dmMessages.get(conversationId)||[]; if(messages.some(item=>item.id===message.id)) return false;
+        messages.push(message); app.dmMessages.set(conversationId,messages);
+        const conversation=app.conversations.get(conversationId); if(conversation) { conversation.updatedAt=Date.now(); app.conversations.set(conversationId,conversation); }
+        return true;
+      }
+      function receiveDirectMessage(conversationId,message,senderId) {
+        const conversation=app.conversations.get(conversationId);
+        if(!conversation||!conversation.memberIds.includes(senderId)||!message||typeof message.id!=='string'||typeof message.text!=='string') return;
+        const senderName=roster().find(person=>person.peerId===senderId)?.name||message.name;
+        const normalized={id:message.id.slice(0,80),fromId:senderId,name:cleanName(senderName,'Friend'),text:message.text.slice(0,240),time:String(message.time||'').slice(0,20)};
+        const changed=storeDirectMessage(conversationId,normalized); if(!changed) return;
+        if(app.role==='host') for(const peerId of conversation.memberIds) if(peerId!==senderId&&peerId!==app.selfPeerId) { const conn=app.connections.get(peerId); if(conn&&conn.open) conn.send({type:'dm-message',conversationId,message:normalized}); }
+        if(conversation.memberIds.includes(app.selfPeerId)&&(app.activeConversationId!==conversationId||!app.chatOpen)) markUnread();
+        renderMessagingApp();
+      }
+      function sendDirectMessage(text) {
+        const conversation=app.conversations.get(app.activeConversationId); const clean=String(text||'').trim().slice(0,240); if(!conversation||!clean) return;
+        if(!conversationOnline(conversation)) { showToast('Everyone in this chat needs to be online to message.'); return; }
+        const message=makeDirectMessage(clean); storeDirectMessage(conversation.id,message);
+        if(app.role==='host') {
+          for(const peerId of conversation.memberIds) if(peerId!==app.selfPeerId) { const conn=app.connections.get(peerId); if(conn&&conn.open) conn.send({type:'dm-message',conversationId:conversation.id,message}); }
+        } else if(app.connection&&app.connection.open) app.connection.send({type:'dm-message',conversationId:conversation.id,message});
+        else { app.dmMessages.set(conversation.id,(app.dmMessages.get(conversation.id)||[]).filter(item=>item.id!==message.id)); showToast('The lobby connection was lost.'); }
+        renderMessagingApp();
+      }
+      function openCompose(mode) {
+        app.composeMode=mode; $('composeTitle').textContent=mode==='group'?'New group chat':'New message';
+        $('composeInstructions').textContent=mode==='group'?'Choose at least two friends for a group.':'Choose one friend to message.';
+        $('groupNameWrap').classList.toggle('hidden',mode!=='group'); $('groupNameInput').value='';
+        const list=$('composePeople'); list.replaceChildren(); const onlineIds=new Set(roster().map(person=>person.peerId)); const people=Array.from(app.friendDirectory.values()).filter(person=>person.peerId!==app.selfPeerId);
+        for(const person of people) {
+          const label=document.createElement('label'); label.className='compose-person';
+          const input=document.createElement('input'); input.type=mode==='group'?'checkbox':'radio'; input.name='composeFriend'; input.value=person.peerId;
+          const copy=document.createElement('span'); copy.className='compose-person-copy';
+          const name=document.createElement('span'); name.className='compose-person-name'; name.textContent=person.name||'Player';
+          const online=onlineIds.has(person.peerId); input.disabled=!online; const state=document.createElement('span'); state.className='compose-person-state'; state.textContent=online?(person.playing?'Playing now':'Online'):'Offline — join the lobby to message'; copy.append(name,state); label.append(input,copy); list.append(label);
+          input.addEventListener('change',updateComposeButton);
+        }
+        if(!people.length) { const empty=document.createElement('div'); empty.className='compose-empty'; empty.textContent='Invite friends to your lobby first.'; list.append(empty); }
+        updateComposeButton(); $('composeDialog').showModal();
+      }
+      function updateComposeButton() {
+        const count=$('composePeople').querySelectorAll('input:checked').length;
+        $('startConversation').disabled=app.composeMode==='group'?count<2:count!==1;
+      }
+      function submitCompose() {
+        const ids=Array.from($('composePeople').querySelectorAll('input:checked')).map(input=>input.value); if(app.composeMode==='direct'&&ids.length===1) startDirectConversation(ids[0]);
+        if(app.composeMode==='group'&&ids.length>=2) publishConversation(makeConversation('group',[app.selfPeerId,...ids],$('groupNameInput').value.trim()||'Game night group'));
+        $('composeDialog').close();
+      }
+      function submitVoicePrivacy() {
+        const selected=$('voicePrivacyDialog').querySelector('input[name="voiceAccess"][value="selected"]').checked;
+        const allowed=Array.from($('voicePeoplePicker').querySelectorAll('input[type="checkbox"]:checked')).map(input=>input.value);
+        if(selected&&!allowed.length) { showToast('Choose at least one friend, or allow everyone.'); return; }
+        setProfile({voicePrivate:selected,voiceAllowedIds:selected?allowed:[]}); $('voicePrivacyDialog').close();
+      }
+      function renderMuteButton() {
+        const button=$('muteToggle');
+        button.classList.toggle('is-muted',app.muted);
+        $('muteLabel').textContent=app.muted?'Unmute mic':'Mute mic';
+        $('muteIcon').innerHTML=app.muted
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 12 4.9M19 11a7 7 0 0 1-.8 3.2M12 18v3m-4 0h8M3 3l18 18"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8"/></svg>';
+      }
+      function renderVoicePeople() {
+        const people=roster().filter(person=>person.voiceOn&&canVoiceConnect(person));
+        $('voiceMemberCount').textContent=`${people.length} ${people.length===1?'person':'people'}`;
+        const list=$('voicePeopleList'); list.replaceChildren();
+        if(!people.length) { const empty=document.createElement('p'); empty.className='voice-empty'; empty.textContent='No one in voice yet.'; list.append(empty); return; }
+        for(const person of people) {
+          const row=document.createElement('div'); row.className='voice-person';
+          const name=document.createElement('div'); name.className='voice-person-name'; name.textContent=person.name||'Player';
+          if(person.peerId===app.selfPeerId) { const you=document.createElement('small'); you.textContent='You'; name.append(you); }
+          row.append(name);
+          if(person.peerId===app.selfPeerId) {
+            const mic=document.createElement('span'); mic.className='voice-empty'; mic.style.gridColumn='2 / 4'; mic.textContent=app.muted?'Mic muted':'Mic on'; row.append(mic);
+          } else {
+            const slider=document.createElement('input'); slider.type='range'; slider.min='0'; slider.max='100'; slider.step='1'; slider.className='voice-volume'; slider.setAttribute('aria-label',`Volume for ${person.name||'Player'}`);
+            slider.value=String(app.volumes.get(person.peerId)??80);
+            const value=document.createElement('span'); value.className='voice-volume-value'; value.textContent=`${slider.value}%`;
+            slider.addEventListener('input',()=>{ const volume=Number(slider.value); app.volumes.set(person.peerId,volume); value.textContent=`${volume}%`; const audio=document.querySelector(`audio[data-peer="${CSS.escape(person.peerId)}"]`); if(audio) audio.volume=volume/100; });
+            row.append(slider,value);
+          }
+          list.append(row);
+        }
+      }
+      function renderSoundboard() {
+        const list=$('soundList'); list.replaceChildren();
+        if(!app.sounds.length) { const empty=document.createElement('p'); empty.className='sound-empty'; empty.textContent='No custom sounds yet.'; list.append(empty); return; }
+        for(const sound of app.sounds) {
+          const row=document.createElement('div'); row.className='sound-item';
+          const name=document.createElement('input'); name.className='sound-name-input'; name.type='text'; name.maxLength=28; name.value=sound.name; name.setAttribute('aria-label','Sound name');
+          name.addEventListener('change',()=>{ sound.name=name.value.trim().slice(0,28)||'Sound'; saveSounds(); renderSoundboard(); });
+          const play=document.createElement('button'); play.type='button'; play.className='sound-play'; play.dataset.soundId=sound.id; play.textContent=app.soundPlayers.has(sound.id)?'Playing':'Play'; play.classList.toggle('is-playing',app.soundPlayers.has(sound.id)); play.addEventListener('click',()=>playSound(sound));
+          const remove=document.createElement('button'); remove.type='button'; remove.className='sound-remove'; remove.textContent='Remove'; remove.addEventListener('click',()=>{ stopLocalSound(sound.id); app.sounds=app.sounds.filter(item=>item.id!==sound.id); saveSounds(); renderSoundboard(); });
+          const maxDuration=Math.max(.5,Math.min(600,Number(sound.clipDuration)||10));
+          const progress=Math.min(maxDuration,Math.max(0,app.soundProgress.get(sound.id)||0));
+          const durationControls=document.createElement('label'); durationControls.className='sound-duration-controls';
+          const elapsed=document.createElement('span'); elapsed.className='sound-duration-current'; elapsed.dataset.soundId=sound.id; elapsed.textContent=formatDuration(progress);
+          const durationSlider=document.createElement('input'); durationSlider.className='sound-duration'; durationSlider.dataset.soundId=sound.id; durationSlider.type='range'; durationSlider.min='0'; durationSlider.max=String(maxDuration); durationSlider.step='.01'; durationSlider.value=String(progress); durationSlider.disabled=!app.soundPlayers.has(sound.id); durationSlider.style.setProperty('--progress',`${progress/maxDuration*100}%`); durationSlider.setAttribute('aria-label',`Playback progress for ${sound.name}`); durationSlider.setAttribute('aria-valuetext',`${formatDuration(progress)} of ${formatDuration(maxDuration)}`);
+          const durationValue=document.createElement('span'); durationValue.className='sound-duration-value'; durationValue.dataset.soundId=sound.id; durationValue.textContent=formatDuration(maxDuration);
+          durationSlider.addEventListener('input',()=>{ const value=Number(durationSlider.value); updateSoundProgress(sound.id,value,maxDuration); const state=app.soundPlayers.get(sound.id); if(state&&Number.isFinite(state.audio.duration)) state.audio.currentTime=value; });
+          durationControls.append(elapsed,durationSlider,durationValue);
+          row.append(name,play,remove,durationControls); list.append(row); updateSoundProgress(sound.id,progress,maxDuration);
+        }
+      }
+      function formatDuration(seconds) { const whole=Math.max(0,Math.floor(Number(seconds)||0)),minutes=Math.floor(whole/60);return `${minutes}:${String(whole%60).padStart(2,'0')}`; }
+      function updateSoundProgress(soundId,current,duration) {
+        const total=Math.max(.1,Number(duration)||10), progress=Math.min(total,Math.max(0,Number(current)||0));
+        app.soundProgress.set(soundId,progress);
+        const slider=Array.from($('soundList').querySelectorAll('.sound-duration')).find(item=>item.dataset.soundId===soundId);
+        if(slider) { slider.max=String(total); slider.value=String(progress); slider.style.setProperty('--progress',`${progress/total*100}%`); slider.setAttribute('aria-valuetext',`${formatDuration(progress)} of ${formatDuration(total)}`); }
+        const elapsed=Array.from($('soundList').querySelectorAll('.sound-duration-current')).find(item=>item.dataset.soundId===soundId);
+        if(elapsed) elapsed.textContent=formatDuration(progress);
+        const totalLabel=Array.from($('soundList').querySelectorAll('.sound-duration-value')).find(item=>item.dataset.soundId===soundId);
+        if(totalLabel) totalLabel.textContent=formatDuration(total);
+      }
+      function setSoundButton(soundId,isPlaying) {
+        for(const button of $('soundList').querySelectorAll('.sound-play')) if(button.dataset.soundId===soundId) { button.classList.toggle('is-playing',isPlaying); button.textContent=isPlaying?'Playing':'Play'; }
+        for(const slider of $('soundList').querySelectorAll('.sound-duration')) if(slider.dataset.soundId===soundId) slider.disabled=!isPlaying;
+      }
+      function stopLocalSound(soundId) {
+        const state=app.soundPlayers.get(soundId); if(!state) return;
+        cancelAnimationFrame(state.frame); state.audio.pause(); try { state.audio.currentTime=0; } catch(_) {}
+        app.soundPlayers.delete(soundId); updateSoundProgress(soundId,0,state.duration); setSoundButton(soundId,false);
+      }
+      function playSoundLocally(url,duration=10,soundId='') {
+        if(!validSoundUrl(url)) return;
+        if(soundId) stopLocalSound(soundId);
+        const audio=new Audio(url); audio.volume=.8;
+        const state={audio,duration:Math.max(.5,Math.min(600,Number(duration)||10)),frame:0}; if(soundId) app.soundPlayers.set(soundId,state);
+        const reset=ended=>{ if(state.frame) cancelAnimationFrame(state.frame); if(soundId&&app.soundPlayers.get(soundId)===state) { if(ended) updateSoundProgress(soundId,Number.isFinite(audio.duration)?audio.duration:state.duration,Number.isFinite(audio.duration)?audio.duration:state.duration); app.soundPlayers.delete(soundId); setSoundButton(soundId,false); } };
+        audio.addEventListener('ended',()=>reset(true),{once:true});
+        let play; try { play=audio.play(); } catch(_) { reset(false); showToast('Tap the page before playing sounds.'); return; }
+        Promise.resolve(play).then(()=>{
+          if(soundId&&app.soundPlayers.get(soundId)!==state) return;
+          if(soundId) {
+            setSoundButton(soundId,true);
+            const tick=()=>{ if(app.soundPlayers.get(soundId)!==state) return; const total=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:state.duration; updateSoundProgress(soundId,audio.currentTime,total); state.frame=requestAnimationFrame(tick); };
+            updateSoundProgress(soundId,0,state.duration); tick();
+          }
+        }).catch(()=>{ reset(false); showToast('Tap the page before playing sounds.'); });
+      }
+      function makeSoundParts(sound) {
+        if(!validSoundUrl(sound.url)) return [];
+        const data=sound.url, id=`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,9)}`, total=Math.ceil(data.length/SOUND_PART_CHARS);
+        const duration=Math.max(.5,Math.min(600,Number(sound.clipDuration)||10));
+        return Array.from({length:total},(_,index)=>({type:'sound-part',id,name:cleanName(sound.name,'Sound'),soundId:String(sound.id||''),duration,index,total,data:data.slice(index*SOUND_PART_CHARS,(index+1)*SOUND_PART_CHARS)}));
+      }
+      function sendSoundToRoom(sound,excludePeerId='') {
+        const parts=makeSoundParts(sound);
+        for(const conn of app.connections.values()) if(conn.open&&conn.peer!==excludePeerId) for(const part of parts) conn.send(part);
+      }
+      function playSound(sound) {
+        const clip={id:sound.id,name:cleanName(sound.name,'Sound'),url:sound.url,duration:sound.clipDuration};
+        if(app.role==='host') { sendSoundToRoom(clip); playSoundLocally(clip.url,clip.duration,clip.id); }
+        else if(app.connection&&app.connection.open) { for(const part of makeSoundParts(clip)) app.connection.send(part); playSoundLocally(clip.url,clip.duration,clip.id); }
+        else showToast('Connect to a lobby before sharing sounds.');
+      }
+      function handleSoundPart(message,senderId) {
+        const maxParts=Math.ceil(MAX_SOUND_URL_LENGTH/SOUND_PART_CHARS);
+        if(!message||typeof senderId!=='string'||typeof message.id!=='string'||message.id.length>40||typeof message.name!=='string'||typeof message.soundId!=='string'||message.soundId.length>50||!Number.isFinite(message.duration)||message.duration<.5||message.duration>600||!Number.isInteger(message.index)||!Number.isInteger(message.total)||message.total<1||message.total>maxParts||message.index<0||message.index>=message.total||typeof message.data!=='string'||message.data.length>SOUND_PART_CHARS) return;
+        const key=`${senderId}:${message.id}`;
+        let transfer=app.soundTransfers.get(key);
+        if(!transfer) {
+          if(app.soundTransfers.size>=8) return;
+          transfer={name:cleanName(message.name,'Sound'),soundId:message.soundId,duration:message.duration,total:message.total,parts:new Array(message.total),received:0,timer:setTimeout(()=>app.soundTransfers.delete(key),30000)};
+          app.soundTransfers.set(key,transfer);
+        }
+        if(transfer.total!==message.total||transfer.soundId!==message.soundId||transfer.duration!==message.duration||transfer.parts[message.index]!==undefined) return;
+        transfer.parts[message.index]=message.data; transfer.received++;
+        if(transfer.received!==transfer.total) return;
+        clearTimeout(transfer.timer); app.soundTransfers.delete(key);
+        const url=transfer.parts.join(''); if(!validSoundUrl(url)) return;
+        const clip={id:transfer.soundId,name:transfer.name,url,duration:transfer.duration};
+        if(app.role==='host') { sendSoundToRoom(clip,senderId); playSoundLocally(url,transfer.duration,transfer.soundId); }
+        else playSoundLocally(url,transfer.duration,transfer.soundId);
+      }
+      function detectAudioDuration(url) {
+        return new Promise(resolve=>{
+          const audio=new Audio(); audio.preload='metadata'; let settled=false;
+          const finish=value=>{ if(settled) return; settled=true; clearTimeout(timer); audio.removeAttribute('src'); audio.load(); resolve(Number.isFinite(value)&&value>0?Math.min(600,value):10); };
+          const timer=setTimeout(()=>finish(10),3000);
+          audio.addEventListener('loadedmetadata',()=>finish(audio.duration),{once:true}); audio.addEventListener('error',()=>finish(10),{once:true}); audio.src=url; audio.load();
+        });
+      }
+      async function hydrateSavedSoundDurations() {
+        let updated=false;
+        for(const sound of app.sounds) if(!sound.clipDuration) { sound.clipDuration=await detectAudioDuration(sound.url); updated=true; }
+        if(updated) { saveSounds(); renderSoundboard(); }
+      }
+      hydrateSavedSoundDurations();
+      async function importSoundFiles(files) {
+        const selected=Array.from(files||[]);
+        for(const file of selected) {
+          if(app.sounds.length>=MAX_SOUNDS) { showToast(`The soundboard holds up to ${MAX_SOUNDS} sounds.`); break; }
+          if(!file.type.startsWith('audio/')) { showToast('Choose audio files to import.'); continue; }
+          if(file.size>MAX_SOUND_BYTES) { showToast('Each sound must be 150 KB or smaller.'); continue; }
+          const url=await new Promise(resolve=>{ const reader=new FileReader(); reader.onload=()=>resolve(reader.result); reader.onerror=()=>resolve(''); reader.readAsDataURL(file); });
+          if(!validSoundUrl(url)) { showToast('That audio file could not be imported.'); continue; }
+          const name=(file.name||'Sound').replace(/\.[^.]+$/,'').slice(0,28)||'Sound';
+          const clipDuration=await detectAudioDuration(url);
+          app.sounds.push({id:`${Date.now()}-${Math.random().toString(36).slice(2,8)}`,name,url,clipDuration});
+        }
+        saveSounds(); renderSoundboard();
+      }
+      function makeChat(text, name) { return {type:'chat',id:`${Date.now()}-${Math.random().toString(36).slice(2,7)}`,name,text,time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}; }
+      function sendChat(text) {
+        const clean=String(text||'').trim().slice(0,240); if(!clean) return;
+        if(app.role==='host') { const message=makeChat(clean,app.localName); app.messages.push(message); broadcastState(); }
+        else if(app.connection&&app.connection.open) app.connection.send({type:'chat',text:clean});
+      }
+      function setupHostConnection(conn) {
+        if (app.connections.size>=MAX_PEOPLE-1) { conn.on('open',()=>conn.send({type:'full'})); conn.close(); return; }
+        app.connections.set(conn.peer,conn);
+        conn.on('data',message=>{
+          if(!message||typeof message!=='object') return;
+          if(message.type==='hello') {
+            if(!app.members.has(conn.peer)&&app.members.size>=MAX_PEOPLE) { conn.send({type:'full'}); conn.close(); return; }
+            const profile=message.profile||{};
+            app.members.set(conn.peer,{peerId:conn.peer,name:cleanName(profile.name,'Player'),ready:Boolean(profile.ready),playing:Boolean(profile.playing),voiceOn:Boolean(profile.voiceOn),voicePrivate:Boolean(profile.voicePrivate),voiceAllowedIds:Array.isArray(profile.voiceAllowedIds)?profile.voiceAllowedIds.filter(id=>typeof id==='string').slice(0,MAX_PEOPLE):[],online:true});
+            conn.send({type:'state',state:roomState()}); broadcastState(); return;
+          }
+          const member=app.members.get(conn.peer); if(!member) return;
+          if(message.type==='profile') {
+            const profile=message.profile||{}; member.name=cleanName(profile.name,member.name); member.ready=Boolean(profile.ready); member.playing=Boolean(profile.playing); member.voiceOn=Boolean(profile.voiceOn); member.voicePrivate=Boolean(profile.voicePrivate); member.voiceAllowedIds=Array.isArray(profile.voiceAllowedIds)?profile.voiceAllowedIds.filter(id=>typeof id==='string').slice(0,MAX_PEOPLE):[]; app.members.set(conn.peer,member); broadcastState(); return;
+          }
+          if(message.type==='chat') { const chat=makeChat(String(message.text||'').slice(0,240),member.name); app.messages.push(chat); markUnread(); sendToRoom(chat,conn.peer); broadcastState(); return; }
+          if(message.type==='dm-create') { receiveConversation(message.conversation,conn.peer); return; }
+          if(message.type==='dm-message') { receiveDirectMessage(String(message.conversationId||''),message.message,conn.peer); return; }
+          if(message.type==='sound-part') { handleSoundPart(message,conn.peer); return; }
+          if(message.type==='leave') { conn.close(); }
+        });
+        conn.on('close',()=>{ app.connections.delete(conn.peer); app.members.delete(conn.peer); closeVoiceCall(conn.peer); broadcastState(); });
+        conn.on('error',()=>{ app.connections.delete(conn.peer); app.members.delete(conn.peer); closeVoiceCall(conn.peer); broadcastState(); });
+      }
+      function setupGuestConnection(conn) {
+        app.connection=conn;
+        conn.on('open',()=>{ app.connection=conn; app.profile={name:app.localName,ready:true,playing:false,voiceOn:false,voicePrivate:false,voiceAllowedIds:[]}; conn.send({type:'hello',profile:app.profile}); renderRoom(); });
+        conn.on('data',message=>{
+          if(!message||typeof message!=='object') return;
+          if(message.type==='full') { $('roomStatus').textContent='This lobby is full.'; showToast('This lobby already has six people.'); return; }
+          if(message.type==='state'&&message.state) {
+            const incoming=message.state.messages||[];
+            if(app.receivedInitialState) { const known=new Set(app.messages.map(item=>item.id)); markUnread(incoming.filter(item=>item&&item.id&&!known.has(item.id)).length); }
+            else app.receivedInitialState=true;
+            app.members=new Map((message.state.members||[]).map(m=>[m.peerId,m])); app.messages=incoming; renderRoom(); reconcileVoice(); return;
+          }
+          if(message.type==='chat'&&!app.messages.some(item=>item.id===message.id)) { app.messages.push(message); markUnread(); renderMessages(); }
+          if(message.type==='dm-create') { receiveConversation(message.conversation,message.conversation?.createdBy||app.roomId); return; }
+          if(message.type==='dm-message') { receiveDirectMessage(String(message.conversationId||''),message.message,message.message?.fromId||''); return; }
+          if(message.type==='sound-part') handleSoundPart(message,app.roomId);
+        });
+        conn.on('close',()=>{ app.connection=null; app.members.clear(); $('roomStatus').textContent='The lobby host went offline. Rejoin with a new invite link.'; $('chatInput').disabled=true; $('sendButton').disabled=true; renderRoom(); });
+        conn.on('error',()=>{ $('roomStatus').textContent='Could not connect. Check the invite link and try again.'; showToast('Could not connect to that lobby.'); });
+      }
+      function connectToRoom() {
+        if(!window.Peer) { showError('The online connection service did not load. Check your internet connection and refresh.'); return; }
+        app.localName=cleanName($('nameInput').value,'Player'); $('nameInput').value=app.localName;
+        try {
+          if($('rememberName').checked) { localStorage.setItem(NAME_STORAGE_KEY,app.localName); rememberedName=app.localName; }
+          else { localStorage.removeItem(NAME_STORAGE_KEY); rememberedName=''; }
+        } catch(_) {}
+        app.profile={name:app.localName,ready:true,playing:false,voiceOn:false,voicePrivate:false,voiceAllowedIds:[]};
+        $('readyUpButton').disabled=true; $('readyUpButton').textContent='Connecting…';
+        $('entryScreen').classList.add('hidden'); $('roomScreen').classList.remove('hidden');
+        app.role=invitedRoom?'guest':'host'; app.roomId=invitedRoom||''; renderRoom();
+        app.peer=new Peer();
+        app.peer.on('open',id=>{
+          app.selfPeerId=id;
+          if(app.role==='host') { app.roomId=id; app.members.set(id,localMember()); renderRoom(); }
+          else { const conn=app.peer.connect(app.roomId,{reliable:true,metadata:{name:app.localName}}); setupGuestConnection(conn); }
+        });
+        app.peer.on('connection',conn=>{ if(app.role==='host') setupHostConnection(conn); });
+        app.peer.on('call',call=>{
+          const person=roster().find(member=>member.peerId===call.peer);
+          if(!app.voiceStream||!person||!person.voiceOn||!canVoiceConnect(person)) { call.close(); return; }
+          if(app.voiceCalls.has(call.peer)) closeVoiceCall(call.peer);
+          call.answer(app.voiceStream); watchVoiceCall(call);
+        });
+        app.peer.on('error',error=>{
+          const message=error&&error.type==='peer-unavailable'?'That lobby is closed. Ask your friend for a new link.':'Could not connect to the lobby service. Try refreshing the page.';
+          $('roomStatus').textContent=message; showToast(message);
+        });
+      }
+      function setProfile(patch) {
+        Object.assign(app.profile,patch);
+        if(app.role==='host') { app.members.set(app.selfPeerId,localMember()); broadcastState(); }
+        else if(app.connection&&app.connection.open) { app.connection.send({type:'profile',profile:app.profile}); renderRoom(); reconcileVoice(); }
+        else renderRoom();
+      }
+      function attachRemoteAudio(peerId,stream) {
+        let audio=document.querySelector(`audio[data-peer="${CSS.escape(peerId)}"]`);
+        if(!audio) { audio=document.createElement('audio'); audio.className='remote-audio'; audio.dataset.peer=peerId; audio.autoplay=true; audio.playsInline=true; $('remoteAudios').append(audio); }
+        audio.srcObject=stream; audio.volume=(app.volumes.get(peerId)??80)/100; const play=audio.play(); if(play&&play.catch) play.catch(()=>showToast('Tap the page once to hear voice chat.'));
+      }
+      function watchVoiceCall(call) {
+        app.voiceCalls.set(call.peer,call);
+        call.on('stream',stream=>attachRemoteAudio(call.peer,stream));
+        call.on('close',()=>closeVoiceCall(call.peer));
+        call.on('error',()=>closeVoiceCall(call.peer));
+      }
+      function closeVoiceCall(peerId) {
+        const call=app.voiceCalls.get(peerId); if(call) { app.voiceCalls.delete(peerId); try{call.close();}catch(_){} }
+        const audio=document.querySelector(`audio[data-peer="${CSS.escape(peerId)}"]`); if(audio) { audio.srcObject=null; audio.remove(); }
+      }
+      function reconcileVoice() {
+        if(!app.peer||!app.selfPeerId||!app.voiceStream) return;
+        const people=roster();
+        const active=new Set(people.filter(p=>p.peerId!==app.selfPeerId&&p.voiceOn&&canVoiceConnect(p)).map(p=>p.peerId));
+        for(const peerId of Array.from(app.voiceCalls.keys())) if(!active.has(peerId)) closeVoiceCall(peerId);
+        for(const person of people) {
+          if(person.peerId===app.selfPeerId||!person.voiceOn||!canVoiceConnect(person)||app.voiceCalls.has(person.peerId)) continue;
+          if(app.selfPeerId.localeCompare(person.peerId)<0) {
+            const call=app.peer.call(person.peerId,app.voiceStream); if(call) watchVoiceCall(call);
+          }
+        }
+      }
+      async function toggleVoice() {
+        if(app.voiceStream) { stopVoice(true); return; }
+        if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) { showToast('Voice needs an HTTPS website and a microphone.'); return; }
+        try {
+          app.voiceStream=await navigator.mediaDevices.getUserMedia({audio:true}); app.muted=false;
+          setProfile({voiceOn:true}); renderRoom(); reconcileVoice();
+        } catch(error) {
+          const message=error&&error.name==='NotAllowedError'?'Allow microphone access to join voice.':error&&error.name==='NotFoundError'?'No microphone was found.':'Could not start voice chat.';
+          showToast(message);
+        }
+      }
+      function stopVoice(updateProfile) {
+        if(app.voiceStream) for(const track of app.voiceStream.getTracks()) track.stop();
+        app.voiceStream=null; app.muted=false;
+        for(const peerId of Array.from(app.voiceCalls.keys())) closeVoiceCall(peerId);
+        if(updateProfile&&app.role) setProfile({voiceOn:false});
+        renderRoom();
+      }
+      function leaveRoom() {
+        stopVoice(false);
+        try { if(app.connection&&app.connection.open) app.connection.send({type:'leave'}); if(app.connection) app.connection.close(); if(app.peer) app.peer.destroy(); } catch(_) {}
+        location.href=location.pathname;
+      }
+      $('readyUpButton').addEventListener('click',connectToRoom);
+      $('nameInput').addEventListener('input',updateEntryButton);
+      $('rememberName').addEventListener('change',updateEntryButton);
+      $('openMessages').addEventListener('click',()=>setChatOpen(true));
+      $('backToLobby').addEventListener('click',()=>setChatOpen(false));
+      $('newMessageButton').addEventListener('click',()=>openCompose('direct'));
+      $('newGroupButton').addEventListener('click',()=>openCompose('group'));
+      $('closeCompose').addEventListener('click',()=>$('composeDialog').close());
+      $('cancelCompose').addEventListener('click',()=>$('composeDialog').close());
+      $('startConversation').addEventListener('click',submitCompose);
+      $('composePeople').addEventListener('change',updateComposeButton);
+      $('dmChatForm').addEventListener('submit',event=>{event.preventDefault();const text=$('dmChatInput').value.trim();if(!text)return;$('dmChatInput').value='';sendDirectMessage(text);});
+      $('openVoicePrivacy').addEventListener('click',()=>{setVoicePrivacyDialog();$('voicePrivacyDialog').showModal();});
+      $('closeVoicePrivacy').addEventListener('click',()=>$('voicePrivacyDialog').close());
+      $('cancelVoicePrivacy').addEventListener('click',()=>$('voicePrivacyDialog').close());
+      $('saveVoicePrivacy').addEventListener('click',submitVoicePrivacy);
+      $('readyToggle').addEventListener('click',()=>setProfile({ready:!app.profile.ready}));
+      $('playingToggle').addEventListener('click',()=>setProfile({playing:!app.profile.playing}));
+      $('voiceToggle').addEventListener('click',toggleVoice);
+      $('muteToggle').addEventListener('click',()=>{ if(!app.voiceStream)return; app.muted=!app.muted; for(const track of app.voiceStream.getAudioTracks()) track.enabled=!app.muted; renderRoom(); });
+      $('importSoundsButton').addEventListener('click',()=>$('soundFiles').click());
+      $('soundFiles').addEventListener('change',async event=>{ await importSoundFiles(event.target.files); event.target.value=''; });
+      $('copyButton').addEventListener('click',async()=>{ if(!app.roomId||!isOnlineHost())return; try{await navigator.clipboard.writeText($('inviteUrl').value);showToast('Invite link copied.');}catch(_){$('inviteUrl').focus();$('inviteUrl').select();showToast('Invite link selected — copy it to share.');} });
+      $('chatForm').addEventListener('submit',event=>{event.preventDefault();const text=$('chatInput').value.trim();if(!text)return;$('chatInput').value='';sendChat(text);});
+      $('leaveButton').addEventListener('click',leaveRoom);
+      if(invitedRoom) { $('entryTitle').innerHTML='Your friends<br>are waiting.'; $('entryDescription').textContent='Add your name and ready up to join their lobby. Chat and voice are here while you play on another device.'; $('nameInput').placeholder='Your name'; }
+      restoreRememberedName();
+    })();
+  </script>
+</body>
+</html>
